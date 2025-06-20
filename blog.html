@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog - WebGhar</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .blog-grid { display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; margin: 32px 0; }
+    .blog-card { background: rgba(255,255,255,0.6); border-radius: 18px; box-shadow: 0 4px 24px rgba(0,0,0,0.10); padding: 24px 18px; width: 260px; text-align: left; backdrop-filter: blur(8px); }
+    .blog-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+    .blog-meta { font-size: 0.95rem; color: #888; margin-bottom: 10px; }
+    .blog-excerpt { font-size: 1rem; color: #333; }
+    .categories-section { background: rgba(255,255,255,0.5); border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); padding: 18px 14px; margin: 24px 0; text-align: center; }
+    .category-badge { display: inline-block; background: #eaeaea; color: #444; border-radius: 8px; padding: 4px 14px; margin: 0 6px 8px 0; font-size: 0.98rem; font-weight: 500; }
+    .subscribe-section { background: rgba(255,255,255,0.6); border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.09); padding: 24px 18px; margin: 32px 0; text-align: center; }
+    .subscribe-section input[type='email'] { padding: 8px 12px; border-radius: 6px; border: 1px solid #ccc; font-size: 1rem; margin-right: 8px; }
+    .subscribe-section button { padding: 8px 18px; border-radius: 6px; border: none; background: #222; color: #fff; font-weight: 600; cursor: pointer; }
+    .subscribe-section button:hover { background: #444; }
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="logo">
+      <img src="logo.png" alt="WebGhar logo">
+      <h2>WebGhar</h2>
+    </div>
+    <ul class="links">
+      <h4>Navigation</h4>
+      <li><span class="material-symbols-outlined">home</span><a href="index.html">Home</a></li>
+      <li><span class="material-symbols-outlined">info</span><a href="about.html">About Us</a></li>
+      <li><span class="material-symbols-outlined">design_services</span><a href="services.html">Services</a></li>
+      <li><span class="material-symbols-outlined">work</span><a href="portfolio.html">Portfolio</a></li>
+      <li><span class="material-symbols-outlined">view_in_ar</span><a href="model.html">3D Model Viewer</a></li>
+      <li><span class="material-symbols-outlined">article</span><a href="blog.html">Blog</a></li>
+      <li><span class="material-symbols-outlined">mail</span><a href="contact.html">Contact</a></li>
+    </ul>
+  </aside>
+  <main class="hero-section">
+    <div class="hero-content">
+      <h1>Blog</h1>
+      <div class="categories-section">
+        <span class="category-badge">Web Design</span>
+        <span class="category-badge">WordPress</span>
+        <span class="category-badge">E-commerce</span>
+        <span class="category-badge">SEO</span>
+        <span class="category-badge">Tips</span>
+      </div>
+      <div class="blog-grid">
+        <div class="blog-card">
+          <div class="blog-title">5 Web Design Trends for 2024</div>
+          <div class="blog-meta">April 2024 • Web Design</div>
+          <div class="blog-excerpt">Discover the latest design trends that will make your website stand out and engage visitors in 2024.</div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-title">Why Choose WordPress for Your Business</div>
+          <div class="blog-meta">March 2024 • WordPress</div>
+          <div class="blog-excerpt">Explore the benefits of WordPress and why it's the best choice for businesses of all sizes.</div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-title">Boost Your Sales with E-commerce Best Practices</div>
+          <div class="blog-meta">February 2024 • E-commerce</div>
+          <div class="blog-excerpt">Learn proven strategies to increase conversions and grow your online store.</div>
+        </div>
+      </div>
+      <div class="subscribe-section">
+        <h3>Subscribe for Updates</h3>
+        <form>
+          <input type="email" placeholder="Your email address" required>
+          <button type="submit">Subscribe</button>
+        </form>
+        <p style="margin-top:10px; color:#666; font-size:0.98rem;">Get the latest news, tips, and case studies from WebGhar.</p>
+      </div>
+    </div>
+  </main>
+</body>
+</html> 

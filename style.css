@@ -1,0 +1,362 @@
+/* Importing Google font - Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    height: 100vh;
+    width: 100%;
+    background-image: url("images/hero-bg.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 110px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(17px);
+    --webkit-backdrop-filter: blur(17px);
+    border-right: 1px solid rgba(255, 255, 255, 0.7);
+    transition: width 0.3s ease;
+}
+
+.sidebar:hover {
+    width: 260px;
+}
+
+.sidebar .logo {
+    color: #000;
+    display: flex;
+    align-items: center;
+    padding: 25px 10px 15px;
+}
+
+.logo img {
+    width: 48px;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    border: 2px solid #fff;
+}
+
+.logo h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    letter-spacing: 1px;
+    margin-left: 15px;
+    display: none;
+}
+
+.sidebar:hover .logo h2 {
+    display: block;
+}
+
+.sidebar .links {
+    list-style: none;
+    margin-top: 20px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    height: calc(100% - 140px);
+}
+
+.sidebar .links::-webkit-scrollbar {
+    display: none;
+}
+
+.links li {
+    display: flex;
+    border-radius: 4px;
+    align-items: center;
+}
+
+.links li:hover {
+    cursor: pointer;
+    background: #fff;
+}
+
+.links h4 {
+    color: #222;
+    font-weight: 500;
+    display: none;
+    margin-bottom: 10px;
+}
+
+.sidebar:hover .links h4 {
+    display: block;
+}
+
+.links hr {
+    margin: 10px 8px;
+    border: 1px solid #4c4c4c;
+}
+
+.sidebar:hover .links hr {
+    border-color: transparent;
+}
+
+.links li span {
+    padding: 12px 10px;
+}
+
+.links li a {
+    padding: 10px;
+    color: #000;
+    display: none;
+    font-weight: 500;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.sidebar:hover .links li a {
+    display: block;
+}
+
+.links .logout-link {
+    margin-top: 20px;
+}
+
+#model-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: 9999;
+  pointer-events: none;
+  background: transparent;
+}
+
+/* Hero Section Styles */
+.hero-section {
+  margin-left: 110px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.10);
+  transition: margin-left 0.3s ease;
+}
+
+.sidebar:hover ~ .hero-section {
+  margin-left: 260px;
+}
+
+.hero-content {
+  max-width: 700px;
+  background: rgba(255,255,255,0.7);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  padding: 48px 40px;
+  text-align: center;
+  backdrop-filter: blur(8px);
+}
+
+.hero-content h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #222;
+  margin-bottom: 12px;
+}
+
+.hero-content .tagline {
+  font-size: 1.3rem;
+  color: #4c4c4c;
+  margin-bottom: 18px;
+  font-weight: 500;
+}
+
+.hero-content .intro {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 32px;
+  line-height: 1.7;
+}
+
+.examples {
+  margin-top: 24px;
+}
+
+.examples h3 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.example-sites {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+}
+
+.example-site {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 18px 14px;
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.example-thumb {
+  width: 100%;
+  height: 100px;
+  background: #eaeaea;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+  font-size: 1rem;
+  font-style: italic;
+}
+
+.example-desc {
+  font-size: 1rem;
+  color: #222;
+  font-weight: 500;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .hero-content {
+    padding: 32px 10px;
+  }
+  .example-sites {
+    flex-direction: column;
+    gap: 18px;
+  }
+  .example-site {
+    width: 100%;
+  }
+}
+
+/* Home page layout with 3D model in center */
+.home-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: center;
+  gap: 32px;
+  min-height: 100vh;
+  background: rgba(255,255,255,0.10);
+  position: relative;
+}
+
+.left-content, .right-content {
+  flex: 1 1 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 320px;
+  max-width: 420px;
+}
+
+#model-container {
+  flex: 0 1 600px;
+  width: 600px;
+  height: 500px;
+  min-width: 320px;
+  min-height: 320px;
+  max-width: 700px;
+  max-height: 600px;
+  background: rgba(255,255,255,0.18);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  margin: 32px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 1200px) {
+  .home-layout {
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+  #model-container {
+    width: 90vw;
+    height: 340px;
+    min-width: 220px;
+    min-height: 220px;
+    max-width: 98vw;
+    max-height: 400px;
+  }
+  .left-content, .right-content {
+    max-width: 98vw;
+    min-width: 0;
+  }
+  .left-content { left: 4%; top: 6%; }
+  .right-content { right: 4%; top: 6%; }
+}
+
+@media (max-width: 700px) {
+  .home-layout {
+    flex-direction: column;
+    gap: 8px;
+  }
+  #model-container {
+    width: 98vw;
+    height: 220px;
+    min-width: 120px;
+    min-height: 120px;
+    max-width: 100vw;
+    max-height: 240px;
+  }
+  .floating-panel { position: static; max-width: 98vw; min-width: 0; margin: 8px auto; }
+  .left-content, .right-content, .bottom-content { top: auto; left: auto; right: auto; bottom: auto; transform: none; }
+}
+
+/* Floating info panels for homepage */
+.floating-panel {
+  position: absolute;
+  z-index: 2;
+  background: rgba(255,255,255,0.75);
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+  padding: 18px 22px;
+  min-width: 180px;
+  max-width: 320px;
+  font-size: 1rem;
+  backdrop-filter: blur(8px);
+  transition: box-shadow 0.2s;
+}
+
+.left-content {
+  top: 10%;
+  left: 18%;
+}
+
+.right-content {
+  top: 10%;
+  right: 18%;
+}
+
+.bottom-content {
+  left: 50%;
+  bottom: 8%;
+  transform: translateX(-50%);
+  max-width: 480px;
+  min-width: 220px;
+  text-align: center;
+}
+
+@media (max-width: 1200px) {
+  .bottom-content { max-width: 98vw; }
+}
