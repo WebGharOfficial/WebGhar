@@ -6,21 +6,6 @@
   <title>Contact - WebGhar</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
   <link rel="stylesheet" href="style.css">
-  <style>
-    .contact-form { max-width: 400px; margin: 0 auto; text-align: left; }
-    .contact-form label { display: block; margin-top: 16px; font-weight: 500; }
-    .contact-form input, .contact-form textarea { width: 100%; padding: 8px; margin-top: 4px; border-radius: 6px; border: 1px solid #ccc; font-size: 1rem; }
-    .contact-form button { margin-top: 18px; padding: 10px 24px; border: none; border-radius: 6px; background: #222; color: #fff; font-size: 1rem; cursor: pointer; }
-    .contact-form button:hover { background: #444; }
-    .glass-card { background: rgba(255,255,255,0.6); border-radius: 18px; box-shadow: 0 4px 24px rgba(0,0,0,0.10); padding: 28px 24px; margin: 24px 0; backdrop-filter: blur(8px); }
-    .social-links { display: flex; gap: 18px; justify-content: center; margin: 18px 0; }
-    .social-link { color: #222; background: #fff; border-radius: 50%; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); text-decoration: none; transition: background 0.2s; }
-    .social-link:hover { background: #eaeaea; }
-    .faq-section { background: rgba(255,255,255,0.5); border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); padding: 24px 18px; margin: 32px 0; }
-    .faq-q { font-weight: 600; margin-top: 12px; }
-    .faq-a { margin-bottom: 10px; color: #444; }
-    .map-placeholder { width: 100%; height: 180px; background: #eaeaea; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #aaa; font-size: 1.1rem; margin-bottom: 18px; }
-  </style>
 </head>
 <body>
   <aside class="sidebar">
@@ -30,56 +15,113 @@
     </div>
     <ul class="links">
       <h4>Navigation</h4>
-      <li><span class="material-symbols-outlined">home</span><a href="index.html">Home</a></li>
-      <li><span class="material-symbols-outlined">info</span><a href="about.html">About Us</a></li>
-      <li><span class="material-symbols-outlined">design_services</span><a href="services.html">Services</a></li>
-      <li><span class="material-symbols-outlined">work</span><a href="portfolio.html">Portfolio</a></li>
-      <li><span class="material-symbols-outlined">view_in_ar</span><a href="model.html">3D Model Viewer</a></li>
-      <li><span class="material-symbols-outlined">article</span><a href="blog.html">Blog</a></li>
-      <li><span class="material-symbols-outlined">mail</span><a href="contact.html">Contact</a></li>
+      <li><span class="material-symbols-outlined" aria-hidden="true">home</span><a href="index.html">Home</a></li>
+      <li><span class="material-symbols-outlined" aria-hidden="true">info</span><a href="about.html">About Us</a></li>
+      <li><span class="material-symbols-outlined" aria-hidden="true">design_services</span><a href="services.html">Services</a></li>
+      <li><span class="material-symbols-outlined" aria-hidden="true">work</span><a href="portfolio.html">Portfolio</a></li>
+      <li><span class="material-symbols-outlined" aria-hidden="true">article</span><a href="blog.html">Blog</a></li>
+      <li class="active"><span class="material-symbols-outlined" aria-hidden="true">mail</span><a href="contact.html">Contact</a></li>
     </ul>
   </aside>
   <main class="hero-section">
     <div class="hero-content">
-      <h1>Contact Us</h1>
-      <div class="map-placeholder">[Google Map Placeholder]</div>
-      <div class="glass-card">
-        <h3>Contact Form</h3>
-        <div class="contact-form">
+      <h1 class="anim-slide-in">Get in Touch</h1>
+      <p class="intro anim-slide-in">We're here to help and answer any question you might have. We look forward to hearing from you.</p>
+      
+      <div class="map-container anim-slide-in">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56516.31625965415!2d85.29111329921875!3d27.70895550000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb198a307baabf%3A0x4d2d386479c641c!2sKathmandu%2C%20Nepal!5e0!3m2!1sen!2sus!4v1678200929853!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+
+      <div class="contact-grid anim-slide-in">
+        <div class="contact-form-section">
+          <h3>Send Us a Message</h3>
           <form>
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" required>
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="4" required></textarea>
-            <button type="submit">Send Message</button>
+            <div class="contact-form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" class="form-control" required>
+            </div>
+            <div class="contact-form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" class="form-control" required>
+            </div>
+            <div class="contact-form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5" class="form-control" required></textarea>
+            </div>
+            <button type="submit" class="cta-btn primary">Send Message</button>
           </form>
-          <div style="margin-top:24px; font-size:0.98rem; color:#444;">
-            <b>Email:</b> info@webghar.com<br>
-            <b>Phone:</b> +977-9800000000
-          </div>
+        </div>
+
+        <div class="contact-info-section">
+            <h3>Contact Information</h3>
+            <div class="contact-info-item">
+                <span class="material-symbols-outlined">location_pin</span>
+                <div class="contact-info-text">
+                    <h4>Address</h4>
+                    <p>Kathmandu, Nepal</p>
+                </div>
+            </div>
+            <div class="contact-info-item">
+                <span class="material-symbols-outlined">mail</span>
+                <div class="contact-info-text">
+                    <h4>Email</h4>
+                    <p>info@webghar.com</p>
+                </div>
+            </div>
+            <div class="contact-info-item">
+                <span class="material-symbols-outlined">call</span>
+                <div class="contact-info-text">
+                    <h4>Phone</h4>
+                    <p>+977-9800000000</p>
+                </div>
+            </div>
+            <h4>Follow Us</h4>
+            <div class="social-links-grid">
+              <a class="social-link" href="#" title="Facebook"><span class="material-symbols-outlined">groups</span></a>
+              <a class="social-link" href="#" title="Twitter"><span class="material-symbols-outlined">chat_bubble</span></a>
+              <a class="social-link" href="#" title="Instagram"><span class="material-symbols-outlined">photo_camera</span></a>
+              <a class="social-link" href="#" title="LinkedIn"><span class="material-symbols-outlined">work</span></a>
+            </div>
         </div>
       </div>
-      <div class="glass-card">
-        <h3>Connect with Us</h3>
-        <div class="social-links">
-          <a class="social-link" href="#" title="Facebook"><span class="material-symbols-outlined">public</span></a>
-          <a class="social-link" href="#" title="Twitter"><span class="material-symbols-outlined">alternate_email</span></a>
-          <a class="social-link" href="#" title="Instagram"><span class="material-symbols-outlined">photo_camera</span></a>
-          <a class="social-link" href="#" title="LinkedIn"><span class="material-symbols-outlined">business_center</span></a>
-        </div>
-      </div>
-      <div class="faq-section">
+      
+      <div class="glass-card anim-slide-in">
         <h3>Frequently Asked Questions</h3>
-        <div class="faq-q">How long does it take to build a website?</div>
-        <div class="faq-a">Most projects take 2-6 weeks, depending on complexity and requirements.</div>
-        <div class="faq-q">Do you offer support after launch?</div>
-        <div class="faq-a">Yes! We provide ongoing maintenance and support packages.</div>
-        <div class="faq-q">Can you redesign my existing website?</div>
-        <div class="faq-a">Absolutely. We specialize in modernizing and improving existing sites.</div>
+        <div class="faq-item">
+          <p class="faq-question">How long does it take to build a website?</p>
+          <p class="faq-answer">Most projects take 2-6 weeks, depending on complexity and requirements.</p>
+        </div>
+        <div class="faq-item">
+          <p class="faq-question">Do you offer support after launch?</p>
+          <p class="faq-answer">Yes! We provide ongoing maintenance and support packages.</p>
+        </div>
+        <div class="faq-item">
+          <p class="faq-question">Can you redesign my existing website?</p>
+          <p class="faq-answer">Absolutely. We specialize in modernizing and improving existing sites.</p>
+        </div>
       </div>
     </div>
   </main>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('slide-in');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.anim-slide-in').forEach(el => {
+        observer.observe(el);
+      });
+    });
+  </script>
 </body>
-</html> 
+</html>

@@ -2,98 +2,129 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-// Scene setup
-const scene = new THREE.Scene();
-const container = document.getElementById('model-container');
-const containerWidth = container.offsetWidth;
-const containerHeight = container.offsetHeight;
-const camera = new THREE.PerspectiveCamera(75, containerWidth / containerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-renderer.setSize(containerWidth, containerHeight);
-renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setClearColor(0x000000, 0);
-container.appendChild(renderer.domElement);
+let camera, scene, renderer, controls;
 
-// Lighting
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-scene.add(ambientLight);
-
-const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-directionalLight.position.set(5, 5, 5);
-scene.add(directionalLight);
-
-// Controls
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;
-controls.dampingFactor = 0.05;
-
-// Camera position
-camera.position.z = 5;
-
-// Load 3D model
-const loader = new GLTFLoader();
-let loadedModel = null;
-let baseCameraZ = camera.position.z;
-
-loader.load(
-    'models/boudhanath_stupa_-_pointcloud.glb',
-    function (gltf) {
-        const model = gltf.scene;
-        scene.add(model);
-        loadedModel = model;
-
-        // Center the model
-        const box = new THREE.Box3().setFromObject(model);
-        const center = box.getCenter(new THREE.Vector3());
-        model.position.sub(center);
-
-        // Adjust camera to fit model
-        const size = box.getSize(new THREE.Vector3());
-        const maxDim = Math.max(size.x, size.y, size.z);
-        const fov = camera.fov * (Math.PI / 180);
-        let cameraZ = Math.abs(maxDim / Math.sin(fov / 2));
-        camera.position.z = cameraZ * 1.5;
-        baseCameraZ = camera.position.z;
-        controls.target.set(0, 0, 0);
-        controls.update();
-    },
-    function (xhr) {
-        console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-    },
-    function (error) {
-        console.error('An error happened:', error);
+function init() {
+    const container = document.getElementById('model-container');
+    if (!container) {
+        console.error("The #model-container div was not found in the HTML.");
+        return;
     }
-);
 
-// Scroll-based interaction
-window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY || window.pageYOffset;
-    // Rotate model if loaded
-    if (loadedModel) {
-        loadedModel.rotation.y = scrollY * 0.005;
-    }
-    // Zoom camera in/out
-    camera.position.z = baseCameraZ - scrollY * 0.01;
-    camera.position.z = Math.max(camera.position.z, 2); // Prevent too close
-    controls.update();
-});
+    // Add loading indicator
+    container.innerHTML = '<div class="model-loading">Loading 3D Model...</div>';
 
-// Handle window resize
-window.addEventListener('resize', onWindowResize, false);
+    // Scene setup
+    scene = new THREE.Scene();
+    
+    // Camera - zoomed in slightly
+    camera = new THREE.PerspectiveCamera(75, container.offsetWidth / container.offsetHeight, 0.1, 1000);
+    camera.position.z = 3; // Closer than before (was 5)
+
+    // Renderer
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(container.offsetWidth, container.offsetHeight);
+    renderer.setClearColor(0x000000, 0);
+    container.appendChild(renderer.domElement);
+
+    // Lighting
+    scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(5, 10, 7.5);
+    scene.add(directionalLight);
+
+    // Controls
+    controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.autoRotate = true; // Add auto-rotation
+    controls.autoRotateSpeed = 0.5;
+
+    // Load 3D model
+    const loader = new GLTFLoader();
+    loader.load(
+        'models/boudhanath_stupa_-_pointcloud.glb',
+        (gltf) => {
+            const model = gltf.scene;
+            
+            // Apply black material overlay to invert colors
+            model.traverse((child) => {
+                if (child.isMesh) {
+                    // Create a solid black material
+                    const blackMaterial = new THREE.MeshBasicMaterial({
+                        color: 0x000000,
+                        transparent: false,
+                        opacity: 1.0
+                    });
+                    
+                    // Apply the black material
+                    child.material = blackMaterial;
+                }
+            });
+            
+            // Center the model
+            const box = new THREE.Box3().setFromObject(model);
+            const center = box.getCenter(new THREE.Vector3());
+            model.position.sub(center);
+            
+            // Scale model and adjust camera to fit
+            const size = box.getSize(new THREE.Vector3()).length();
+            const fov = camera.fov * (Math.PI / 180);
+            const cameraZ = Math.abs(size / 2 / Math.tan(fov / 2));
+            
+            camera.position.z = cameraZ * 0.8; // Zoom in more (was 1.2)
+            controls.minDistance = size / 3; // Closer minimum distance
+            controls.maxDistance = size * 1.5; // Closer maximum distance
+            
+            controls.update();
+            scene.add(model);
+            
+            // Remove loading indicator
+            const loadingDiv = container.querySelector('.model-loading');
+            if (loadingDiv) {
+                loadingDiv.remove();
+            }
+        },
+        (progress) => {
+            // Show loading progress
+            const loadingDiv = container.querySelector('.model-loading');
+            if (loadingDiv) {
+                const percent = Math.round((progress.loaded / progress.total) * 100);
+                loadingDiv.textContent = `Loading 3D Model... ${percent}%`;
+            }
+        },
+        (error) => {
+            console.error('An error happened while loading the model:', error);
+            const container = document.getElementById('model-container');
+            if (container) {
+                container.innerHTML = '<div class="model-loading" style="color: #ff6b6b;">Error loading 3D model. Please refresh the page.</div>';
+            }
+        }
+    );
+
+    // Handle window resize
+    window.addEventListener('resize', onWindowResize, false);
+}
 
 function onWindowResize() {
-    const containerWidth = container.offsetWidth;
-    const containerHeight = container.offsetHeight;
-    camera.aspect = containerWidth / containerHeight;
+    const container = document.getElementById('model-container');
+    if (!container || !camera || !renderer) return;
+
+    camera.aspect = container.offsetWidth / container.offsetHeight;
     camera.updateProjectionMatrix();
-    renderer.setSize(containerWidth, containerHeight);
+    renderer.setSize(container.offsetWidth, container.offsetHeight);
 }
 
-// Animation loop
 function animate() {
     requestAnimationFrame(animate);
-    controls.update();
-    renderer.render(scene, camera);
+    if (controls) controls.update();
+    if (renderer && scene && camera) renderer.render(scene, camera);
 }
 
+// Start everything
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}
 animate(); 

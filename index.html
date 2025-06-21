@@ -4,10 +4,19 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glassmorphism Sidebar | CodingNepal</title>
+    <title>WebGhar - Immersive 3D Web Experiences</title>
     <!-- Linking Google font link for icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <link rel="stylesheet" href="style.css">
+    <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
   </head>
   <body>
     <aside class="sidebar">
@@ -17,62 +26,159 @@
       </div>
       <ul class="links">
         <h4>Navigation</h4>
-        <li>
-          <span class="material-symbols-outlined">home</span>
+        <li class="active">
+          <span class="material-symbols-outlined" aria-hidden="true">home</span>
           <a href="index.html">Home</a>
         </li>
         <li>
-          <span class="material-symbols-outlined">info</span>
+          <span class="material-symbols-outlined" aria-hidden="true">info</span>
           <a href="about.html">About Us</a>
         </li>
         <li>
-          <span class="material-symbols-outlined">design_services</span>
+          <span class="material-symbols-outlined" aria-hidden="true">design_services</span>
           <a href="services.html">Services</a>
         </li>
         <li>
-          <span class="material-symbols-outlined">work</span>
+          <span class="material-symbols-outlined" aria-hidden="true">work</span>
           <a href="portfolio.html">Portfolio</a>
         </li>
         <li>
-          <span class="material-symbols-outlined">view_in_ar</span>
-          <a href="model.html">3D Model Viewer</a>
-        </li>
-        <li>
-          <span class="material-symbols-outlined">article</span>
+          <span class="material-symbols-outlined" aria-hidden="true">article</span>
           <a href="blog.html">Blog</a>
         </li>
         <li>
-          <span class="material-symbols-outlined">mail</span>
+          <span class="material-symbols-outlined" aria-hidden="true">mail</span>
           <a href="contact.html">Contact</a>
         </li>
       </ul>
     </aside>
     
-    <main class="hero-section home-layout">
-      <div class="floating-panel hero-content left-content">
-        <h1>WebGhar</h1>
-        <p class="tagline">Premium, Aesthetic, and Functional Websites for Your Business</p>
-      </div>
-      <div id="model-container"></div>
-      <div class="floating-panel hero-content right-content">
-        <div class="examples">
-          <h3>Our Work</h3>
-          <div class="example-sites">
-            <div class="example-site">
-              <div class="example-thumb">[Example 1 Screenshot]</div>
-              <div class="example-desc">Modern Restaurant Website</div>
+    <main class="hero-section">
+      <div class="hero-content">
+        <h1>Welcome to WebGhar</h1>
+        <p class="intro">Where Innovation Meets Imagination</p>
+        
+        <!-- 3D Model Section with proper spacing -->
+        <div class="model-section">
+          <div id="model-container"></div>
+          
+          <!-- Floating panels -->
+          <div class="floating-panel" id="panel1">
+            <span>Creative</span>
+          </div>
+          <div class="floating-panel" id="panel2">
+            <span>Innovative</span>
+          </div>
+          <div class="floating-panel" id="panel3">
+            <span>Modern</span>
+          </div>
+          <div class="floating-panel" id="panel4">
+            <span>Dynamic</span>
+          </div>
+        </div>
+        
+        <!-- Features Section -->
+        <div class="glass-card">
+          <h3>What We Offer</h3>
+          <div class="features-grid">
+            <div class="feature-item">
+              <span class="material-symbols-outlined" aria-hidden="true">code</span>
+              <h4>Custom Development</h4>
+              <p>Tailored web solutions built with modern technologies and best practices.</p>
             </div>
-            <div class="example-site">
-              <div class="example-thumb">[Example 2 Screenshot]</div>
-              <div class="example-desc">Professional Consulting Firm</div>
+            <div class="feature-item">
+              <span class="material-symbols-outlined" aria-hidden="true">view_in_ar</span>
+              <h4>3D Experiences</h4>
+              <p>Immersive 3D visualizations and interactive experiences for your brand.</p>
+            </div>
+            <div class="feature-item">
+              <span class="material-symbols-outlined" aria-hidden="true">design_services</span>
+              <h4>Creative Design</h4>
+              <p>Beautiful, user-centric designs that engage and inspire your audience.</p>
+            </div>
+            <div class="feature-item">
+              <span class="material-symbols-outlined" aria-hidden="true">speed</span>
+              <h4>Performance Optimized</h4>
+              <p>Lightning-fast websites that load instantly and provide seamless experiences.</p>
             </div>
           </div>
         </div>
-      </div>
-      <div class="floating-panel hero-content bottom-content">
-        <p class="intro">At WebGhar, we design and build custom websites for businesses of all sizes. Our solutions are affordable, yet deliver a premium feel—combining aesthetics, functionality, and a tailored approach for every client. Whether you need a fully custom-coded site or a WordPress solution, we have the expertise to bring your vision to life. With years of experience and a portfolio spanning diverse industries, we help you stand out online and grow your business.</p>
+        
+        <!-- Stats Section -->
+        <div class="glass-card">
+          <h3>Our Numbers</h3>
+          <div class="stats-section">
+            <div class="stat-item">
+              <span class="stat-number">50+</span>
+              <span class="stat-label">Projects Completed</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">100%</span>
+              <span class="stat-label">Client Satisfaction</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">24/7</span>
+              <span class="stat-label">Support Available</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">5+</span>
+              <span class="stat-label">Years Experience</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Process Section -->
+        <div class="glass-card">
+          <h3>Our Process</h3>
+          <div class="process-steps">
+            <div class="process-step">
+              <div class="step-number">01</div>
+              <h4>Discovery</h4>
+              <p>We dive deep into understanding your business, goals, and vision.</p>
+            </div>
+            <div class="process-step">
+              <div class="step-number">02</div>
+              <h4>Design</h4>
+              <p>Our creative team crafts stunning visual concepts that align with your brand.</p>
+            </div>
+            <div class="process-step">
+              <div class="step-number">03</div>
+              <h4>Development</h4>
+              <p>We build your solution using cutting-edge technologies and best practices.</p>
+            </div>
+            <div class="process-step">
+              <div class="step-number">04</div>
+              <h4>Launch</h4>
+              <p>We deploy your project with comprehensive testing and ongoing support.</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- CTA Section -->
+        <div class="cta-section">
+          <h3>Ready to Start Your Project?</h3>
+          <p>Let's discuss how we can bring your vision to life with cutting-edge web solutions.</p>
+          <div class="cta-buttons">
+            <a href="contact.html" class="cta-btn primary">Get in Touch</a>
+            <a href="portfolio.html" class="cta-btn secondary">View Our Work</a>
+          </div>
+        </div>
       </div>
     </main>
+    
     <script type="module" src="model.js"></script>
+    <script>
+      // Floating panel animations
+      document.addEventListener('DOMContentLoaded', function() {
+        const panels = document.querySelectorAll('.floating-panel');
+        
+        panels.forEach((panel, index) => {
+          setTimeout(() => {
+            panel.style.opacity = '1';
+            panel.style.transform = 'translate(-50%, -50%) scale(1)';
+          }, index * 200);
+        });
+      });
+    </script>
   </body>
 </html>
