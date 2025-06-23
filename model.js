@@ -39,6 +39,7 @@ function init() {
     controls.enableDamping = true;
     controls.autoRotate = true; // Add auto-rotation
     controls.autoRotateSpeed = 0.5;
+    controls.enableZoom = false; // Disable zoom
 
     // Load 3D model
     const loader = new GLTFLoader();
@@ -66,15 +67,17 @@ function init() {
             const box = new THREE.Box3().setFromObject(model);
             const center = box.getCenter(new THREE.Vector3());
             model.position.sub(center);
+
+            // Offset model upward so the base is visible
+            const sizeVec = box.getSize(new THREE.Vector3());
+            model.position.y -= sizeVec.y * 0.18; // Move up by 18% of height
             
             // Scale model and adjust camera to fit
             const size = box.getSize(new THREE.Vector3()).length();
             const fov = camera.fov * (Math.PI / 180);
             const cameraZ = Math.abs(size / 2 / Math.tan(fov / 2));
             
-            camera.position.z = cameraZ * 0.8; // Zoom in more (was 1.2)
-            controls.minDistance = size / 3; // Closer minimum distance
-            controls.maxDistance = size * 1.5; // Closer maximum distance
+            camera.position.z = cameraZ * 0.6; // Zoom in even more
             
             controls.update();
             scene.add(model);
