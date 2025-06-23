@@ -70,7 +70,7 @@ function init() {
 
             // Offset model upward so the base is visible
             const sizeVec = box.getSize(new THREE.Vector3());
-            model.position.y -= sizeVec.y * 0.18; // Move up by 18% of height
+            model.position.y -= sizeVec.y * -0.3; // Move up by 18% of height
             
             // Scale model and adjust camera to fit
             const size = box.getSize(new THREE.Vector3()).length();
@@ -78,6 +78,8 @@ function init() {
             const cameraZ = Math.abs(size / 2 / Math.tan(fov / 2));
             
             camera.position.z = cameraZ * 0.6; // Zoom in even more
+            camera.position.y = cameraZ * 0.23; // Slightly above the model
+            controls.target.set(0, 0, 0); // Look at the center
             
             controls.update();
             scene.add(model);
