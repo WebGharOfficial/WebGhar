@@ -8,6 +8,9 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <button class="mobile-hamburger" aria-label="Open sidebar" style="display:none">
+    <span class="material-symbols-outlined">menu</span>
+  </button>
   <aside class="sidebar">
     <div class="logo">
       <img src="logo.png" alt="WebGhar logo">
@@ -23,22 +26,23 @@
       <li><span class="material-symbols-outlined" aria-hidden="true">mail</span><a href="contact.html">Contact</a></li>
     </ul>
   </aside>
+  <div class="sidebar-overlay"></div>
   <main class="hero-section">
     <div class="hero-content">
       <h1 class="anim-slide-in">Our Services</h1>
       <p class="intro anim-slide-in">Comprehensive web solutions tailored to your business needs</p>
       
-      <div class="pricing-widget anim-slide-in">
+      <div class="pricing-widget anim-slide-in card-grid-animate">
         <h3>Service Packages</h3>
         <div class="pricing-grid">
           <div class="pricing-tier">
             <div class="tier-name">Basic</div>
-            <div class="tier-price">$999</div>
+            <div class="tier-price">Rs 10,000</div>
             <div>Perfect for startups</div>
           </div>
           <div class="pricing-tier">
             <div class="tier-name">Professional</div>
-            <div class="tier-price">$1,999</div>
+            <div class="tier-price">Rs 15,000</div>
             <div>For growing businesses</div>
           </div>
           <div class="pricing-tier">
@@ -49,7 +53,7 @@
         </div>
       </div>
       
-      <div class="services-grid anim-slide-in">
+      <div class="services-grid anim-slide-in card-grid-animate">
         <div class="service-card">
           <span class="material-symbols-outlined" aria-hidden="true">brush</span>
           <h4>Custom Website Design</h4>
@@ -100,7 +104,7 @@
         </div>
       </div>
       
-      <div class="glass-card anim-slide-in">
+      <div class="glass-card anim-slide-in card-grid-animate">
         <h3>Our Technology Stack</h3>
         <div class="tech-stack-grid">
           <span class="tech-badge">HTML5</span>
@@ -116,7 +120,7 @@
         </div>
       </div>
       
-      <div class="glass-card anim-slide-in">
+      <div class="glass-card anim-slide-in card-grid-animate">
         <h3>Our Process</h3>
         <div class="process-steps">
             <div class="process-step">
@@ -154,12 +158,44 @@
   </main>
   
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', function() {
+      // Sidebar mobile logic
+      const sidebar = document.querySelector('.sidebar');
+      const hamburger = document.querySelector('.mobile-hamburger');
+      const overlay = document.querySelector('.sidebar-overlay');
+      function checkMobile() {
+        if (window.innerWidth <= 700) {
+          hamburger.style.display = 'flex';
+          sidebar.classList.remove('open');
+        } else {
+          hamburger.style.display = 'none';
+          sidebar.classList.remove('open');
+          overlay.style.display = 'none';
+        }
+      }
+      checkMobile();
+      window.addEventListener('resize', checkMobile);
+      hamburger.addEventListener('click', function() {
+        sidebar.classList.add('open');
+        overlay.style.display = 'block';
+      });
+      overlay.addEventListener('click', function() {
+        sidebar.classList.remove('open');
+        overlay.style.display = 'none';
+      });
+      sidebar.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', function() {
+          if (window.innerWidth <= 700) {
+            sidebar.classList.remove('open');
+            overlay.style.display = 'none';
+          }
+        });
+      });
+      // Anim-slide-in observer
       const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
       };
-
       const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -168,7 +204,6 @@
           }
         });
       }, observerOptions);
-
       document.querySelectorAll('.anim-slide-in').forEach(el => {
         observer.observe(el);
       });

@@ -64,6 +64,9 @@
     </script>
 </head>
 <body>
+    <button class="mobile-hamburger" aria-label="Open sidebar" style="display:none">
+      <span class="material-symbols-outlined">menu</span>
+    </button>
     <aside class="sidebar">
       <div class="logo">
         <img src="logo.png" alt="WebGhar logo">
@@ -80,6 +83,7 @@
         <li><span class="material-symbols-outlined">mail</span><a href="contact.html">Contact</a></li>
       </ul>
     </aside>
+    <div class="sidebar-overlay"></div>
     <main class="model-hero-section">
       <div class="model-header">
         <h1>3D Model Viewer</h1>
@@ -89,5 +93,41 @@
       <div id="model-container"></div>
     </main>
     <script type="module" src="model.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Sidebar mobile logic
+        const sidebar = document.querySelector('.sidebar');
+        const hamburger = document.querySelector('.mobile-hamburger');
+        const overlay = document.querySelector('.sidebar-overlay');
+        function checkMobile() {
+          if (window.innerWidth <= 700) {
+            hamburger.style.display = 'flex';
+            sidebar.classList.remove('open');
+          } else {
+            hamburger.style.display = 'none';
+            sidebar.classList.remove('open');
+            overlay.style.display = 'none';
+          }
+        }
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        hamburger.addEventListener('click', function() {
+          sidebar.classList.add('open');
+          overlay.style.display = 'block';
+        });
+        overlay.addEventListener('click', function() {
+          sidebar.classList.remove('open');
+          overlay.style.display = 'none';
+        });
+        sidebar.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', function() {
+            if (window.innerWidth <= 700) {
+              sidebar.classList.remove('open');
+              overlay.style.display = 'none';
+            }
+          });
+        });
+      });
+    </script>
 </body>
 </html> 

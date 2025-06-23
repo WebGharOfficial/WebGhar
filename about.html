@@ -8,6 +8,9 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <button class="mobile-hamburger" aria-label="Open sidebar" style="display:none">
+    <span class="material-symbols-outlined">menu</span>
+  </button>
   <aside class="sidebar">
     <div class="logo">
       <img src="logo.png" alt="WebGhar logo">
@@ -23,51 +26,47 @@
       <li><span class="material-symbols-outlined" aria-hidden="true">mail</span><a href="contact.html">Contact</a></li>
     </ul>
   </aside>
+  <div class="sidebar-overlay"></div>
   <main class="hero-section">
     <div class="hero-content">
       <h1 class="anim-slide-in">About WebGhar</h1>
-      <p class="intro anim-slide-in" style="animation-delay: 0.1s;">WebGhar is a team of passionate designers and developers dedicated to building beautiful, functional, and affordable websites for businesses. With years of experience and a commitment to excellence, we help our clients stand out online and grow their brands. Our mission is to make premium web design accessible to everyone, combining creativity, technology, and strategy for outstanding results.</p>
-      
-      <div class="stats-widget anim-slide-in" style="animation-delay: 0.2s;">
-        <h3>Our Impact</h3>
-        <div class="stats-widget-content">
-          <div class="stats-widget-item">
-            <div class="stat-value">50+</div>
-            <div>Projects</div>
-          </div>
-          <div class="stats-widget-item">
-            <div class="stat-value">100%</div>
-            <div>Satisfaction</div>
-          </div>
-          <div class="stats-widget-item">
-            <div class="stat-value">5+</div>
-            <div>Years</div>
+      <section class="about-intro aesthetic-panel anim-slide-in" style="animation-delay: 0.05s;">
+        <div class="about-intro-content">
+          <span class="material-symbols-outlined about-intro-icon pulse-animation" aria-hidden="true">lightbulb</span>
+          <div>
+            <h2 class="about-intro-title">Where Innovation Meets Imagination</h2>
+            <p class="about-intro-text">WebGhar is a team of passionate designers and developers dedicated to building beautiful, functional, and affordable websites for businesses. With years of experience and a commitment to excellence, we help our clients stand out online and grow their brands. Our mission is to make premium web design accessible to everyone, combining creativity, technology, and strategy for outstanding results.</p>
           </div>
         </div>
-      </div>
+      </section>
       
-      <div class="glass-card anim-slide-in" style="animation-delay: 0.2s;">
-        <h3>Our Values</h3>
-        <ul class="values-list">
-          <li><b>Creativity:</b> Every project is unique and custom-crafted.</li>
-          <li><b>Integrity:</b> Honest advice and transparent processes.</li>
-          <li><b>Quality:</b> We deliver only the best, no compromises.</li>
-          <li><b>Affordability:</b> Premium results at accessible prices.</li>
-          <li><b>Client Success:</b> Your growth is our priority.</li>
-        </ul>
-      </div>
-      
-      <div class="glass-card anim-slide-in" style="animation-delay: 0.2s;">
-        <h3>Our Journey</h3>
-        <div class="timeline">
-          <div class="timeline-event"><b>2021:</b> WebGhar founded by a group of passionate web professionals.</div>
-          <div class="timeline-event"><b>2022:</b> Launched 20+ websites for local businesses and startups.</div>
-          <div class="timeline-event"><b>2023:</b> Expanded to e-commerce and international clients.</div>
-          <div class="timeline-event"><b>2024:</b> Recognized for design excellence and client satisfaction.</div>
+      <section class="glass-card values-panel anim-slide-in card-grid-animate" style="animation-delay: 0.15s;">
+        <h3 class="values-title">Our Core Values</h3>
+        <div class="values-grid">
+          <div class="value-card interactive-value">
+            <span class="material-symbols-outlined value-icon">auto_awesome</span>
+            <h4>Creativity</h4>
+            <p>Every project is unique and custom-crafted.</p>
+          </div>
+          <div class="value-card interactive-value">
+            <span class="material-symbols-outlined value-icon">verified_user</span>
+            <h4>Integrity</h4>
+            <p>Honest advice and transparent processes.</p>
+          </div>
+          <div class="value-card interactive-value">
+            <span class="material-symbols-outlined value-icon">star</span>
+            <h4>Quality</h4>
+            <p>We deliver only the best, no compromises.</p>
+          </div>
+          <div class="value-card interactive-value">
+            <span class="material-symbols-outlined value-icon">savings</span>
+            <h4>Affordability</h4>
+            <p>Premium results at accessible prices.</p>
+          </div>
         </div>
-      </div>
+      </section>
       
-      <div class="glass-card anim-slide-in" style="animation-delay: 0.2s;">
+      <div class="glass-card anim-slide-in card-rotate card-grid-animate" style="animation-delay: 0.2s;">
         <h3>Why Choose Us?</h3>
         <div class="why-choose-grid">
           <div class="why-choose-card">
@@ -93,25 +92,30 @@
         </div>
       </div>
       
-      <div class="glass-card anim-slide-in" style="animation-delay: 0.2s;">
-        <h3>Our Team</h3>
-        <p>Our team consists of experienced web designers, developers, and digital strategists who work together to deliver custom solutions tailored to each client's needs.</p>
-        
+      <div class="glass-card anim-slide-in team-section card-scale card-grid-animate" style="animation-delay: 0.2s;">
+        <h3>Meet Our Team</h3>
         <div class="team-grid">
-          <div class="team-member">
-            <div class="team-avatar"><span class="material-symbols-outlined">person</span></div>
-            <h4>John Doe</h4>
-            <p>Lead Designer</p>
+          <div class="team-member interactive-team">
+            <div class="team-avatar team-avatar-img">
+              <img src="images/arbin.jpg" alt="Arbin Shakya" />
+            </div>
+            <h4>Arbin Shakya</h4>
+            <p class="team-role">Co-Founder & Full Stack Developer</p>
+            <div class="team-socials">
+              <!-- Placeholder for social icons -->
+              <a href="#" aria-label="LinkedIn" class="team-social-link"><span class="material-symbols-outlined">link</span></a>
+            </div>
           </div>
-          <div class="team-member">
-            <div class="team-avatar"><span class="material-symbols-outlined">person</span></div>
-            <h4>Jane Smith</h4>
-            <p>Senior Developer</p>
-          </div>
-          <div class="team-member">
-            <div class="team-avatar"><span class="material-symbols-outlined">person</span></div>
-            <h4>Mike Johnson</h4>
-            <p>Project Manager</p>
+          <div class="team-member interactive-team">
+            <div class="team-avatar team-avatar-img">
+              <img src="images/shashank.png" alt="Shashank Lamsal" />
+            </div>
+            <h4>Shashank Lamsal</h4>
+            <p class="team-role">Co-Founder & UI/UX Designer</p>
+            <div class="team-socials">
+              <!-- Placeholder for social icons -->
+              <a href="#" aria-label="LinkedIn" class="team-social-link"><span class="material-symbols-outlined">link</span></a>
+            </div>
           </div>
         </div>
       </div>
@@ -128,12 +132,44 @@
   </main>
   
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', function() {
+      // Sidebar mobile logic
+      const sidebar = document.querySelector('.sidebar');
+      const hamburger = document.querySelector('.mobile-hamburger');
+      const overlay = document.querySelector('.sidebar-overlay');
+      function checkMobile() {
+        if (window.innerWidth <= 700) {
+          hamburger.style.display = 'flex';
+          sidebar.classList.remove('open');
+        } else {
+          hamburger.style.display = 'none';
+          sidebar.classList.remove('open');
+          overlay.style.display = 'none';
+        }
+      }
+      checkMobile();
+      window.addEventListener('resize', checkMobile);
+      hamburger.addEventListener('click', function() {
+        sidebar.classList.add('open');
+        overlay.style.display = 'block';
+      });
+      overlay.addEventListener('click', function() {
+        sidebar.classList.remove('open');
+        overlay.style.display = 'none';
+      });
+      sidebar.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', function() {
+          if (window.innerWidth <= 700) {
+            sidebar.classList.remove('open');
+            overlay.style.display = 'none';
+          }
+        });
+      });
+      // Anim-slide-in observer
       const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
       };
-
       const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -142,7 +178,6 @@
           }
         });
       }, observerOptions);
-
       document.querySelectorAll('.anim-slide-in').forEach(el => {
         observer.observe(el);
       });

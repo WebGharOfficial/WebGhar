@@ -19,6 +19,9 @@
     </script>
   </head>
   <body>
+    <button class="mobile-hamburger" aria-label="Open sidebar" style="display:none">
+      <span class="material-symbols-outlined">menu</span>
+    </button>
     <aside class="sidebar">
       <div class="logo">
         <img src="logo.png" alt="WebGhar logo">
@@ -52,7 +55,7 @@
         </li>
       </ul>
     </aside>
-    
+    <div class="sidebar-overlay"></div>
     <main class="hero-section">
       <div class="hero-content">
         <h1>Welcome to WebGhar</h1>
@@ -78,7 +81,7 @@
         </div>
         
         <!-- Features Section -->
-        <div class="glass-card" style="margin-top: -35px; padding-top: 0px;">
+        <div class="glass-card card-grid-animate" style="margin-top: -35px; padding-top: 20px;">
           <h3>What We Offer</h3>
           <div class="features-grid">
             <div class="feature-item">
@@ -105,7 +108,7 @@
         </div>
         
         <!-- Stats Section -->
-        <div class="glass-card">
+        <div class="glass-card card-grid-animate">
           <h3>Our Numbers</h3>
           <div class="stats-section">
             <div class="stat-item">
@@ -128,7 +131,7 @@
         </div>
         
         <!-- Process Section -->
-        <div class="glass-card">
+        <div class="glass-card card-grid-animate">
           <h3>Our Process</h3>
           <div class="process-steps">
             <div class="process-step">
@@ -171,12 +174,45 @@
       // Floating panel animations
       document.addEventListener('DOMContentLoaded', function() {
         const panels = document.querySelectorAll('.floating-panel');
-        
         panels.forEach((panel, index) => {
           setTimeout(() => {
             panel.style.opacity = '1';
             panel.style.transform = 'translate(-50%, -50%) scale(1)';
           }, index * 200);
+        });
+
+        // Mobile sidebar logic
+        const sidebar = document.querySelector('.sidebar');
+        const hamburger = document.querySelector('.mobile-hamburger');
+        const overlay = document.querySelector('.sidebar-overlay');
+        function checkMobile() {
+          if (window.innerWidth <= 700) {
+            hamburger.style.display = 'flex';
+            sidebar.classList.remove('open');
+          } else {
+            hamburger.style.display = 'none';
+            sidebar.classList.remove('open');
+            overlay.style.display = 'none';
+          }
+        }
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        hamburger.addEventListener('click', function() {
+          sidebar.classList.add('open');
+          overlay.style.display = 'block';
+        });
+        overlay.addEventListener('click', function() {
+          sidebar.classList.remove('open');
+          overlay.style.display = 'none';
+        });
+        // Optional: close sidebar on link click (mobile)
+        sidebar.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', function() {
+            if (window.innerWidth <= 700) {
+              sidebar.classList.remove('open');
+              overlay.style.display = 'none';
+            }
+          });
         });
       });
     </script>
