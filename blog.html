@@ -40,24 +40,24 @@
       </div>
 
       <div class="blog-grid anim-slide-in card-grid-animate">
-        <a href="#" class="blog-card">
-          <div class="blog-card-thumb"><span class="material-symbols-outlined">palette</span></div>
+        <a href="web-design-trends-2024.html" class="blog-card">
+          <div class="blog-card-thumb"><img src="blogs images/web design trends.png" alt="Web Design Trends" style="width:100%;height:120px;object-fit:cover;border-radius:12px 12px 0 0;"></div>
           <div class="blog-card-content">
               <div class="blog-card-title">5 Web Design Trends for 2024</div>
               <div class="blog-card-meta">April 2024 • Web Design</div>
               <p class="blog-card-excerpt">Discover the latest design trends that will make your website stand out and engage visitors in 2024.</p>
           </div>
         </a>
-        <a href="#" class="blog-card">
-            <div class="blog-card-thumb"><span class="material-symbols-outlined">wordpress</span></div>
+        <a href="why-choose-wordpress.html" class="blog-card">
+            <div class="blog-card-thumb"><img src="blogs images/wordpress.png" alt="WordPress" style="width:100%;height:120px;object-fit:cover;border-radius:12px 12px 0 0;"></div>
             <div class="blog-card-content">
                 <div class="blog-card-title">Why Choose WordPress for Your Business</div>
                 <div class="blog-card-meta">March 2024 • WordPress</div>
                 <p class="blog-card-excerpt">Explore the benefits of WordPress and why it's the best choice for businesses of all sizes.</p>
             </div>
         </a>
-        <a href="#" class="blog-card">
-            <div class="blog-card-thumb"><span class="material-symbols-outlined">shopping_bag</span></div>
+        <a href="ecommerce-best-practices.html" class="blog-card">
+            <div class="blog-card-thumb"><img src="blogs images/sales.png" alt="E-commerce Best Practices" style="width:100%;height:120px;object-fit:cover;border-radius:12px 12px 0 0;"></div>
             <div class="blog-card-content">
               <div class="blog-card-title">Boost Your Sales with E-commerce Best Practices</div>
               <div class="blog-card-meta">February 2024 • E-commerce</div>
@@ -94,6 +94,81 @@
 
       document.querySelectorAll('.anim-slide-in').forEach(el => {
         observer.observe(el);
+      });
+      // Animate all card-grid-animate children with stagger
+      document.querySelectorAll('.card-grid-animate').forEach(grid => {
+        const children = Array.from(grid.children).filter(child => child.classList.contains('blog-card') || child.classList.contains('category-badge') || child.classList.contains('testimonial-card'));
+        children.forEach((child, i) => {
+          child.style.opacity = '0';
+          child.style.transform = 'translateY(30px) scale(0.98)';
+          setTimeout(() => {
+            child.style.transition = 'all 0.7s cubic-bezier(0.4,0,0.2,1)';
+            child.style.opacity = '1';
+            child.style.transform = 'translateY(0) scale(1)';
+          }, 200 + i * 120);
+        });
+      });
+      // Micro-interactions: icon pop/rotate on hover
+      document.querySelectorAll('.blog-card .material-symbols-outlined, .category-badge').forEach(icon => {
+        icon.addEventListener('mouseenter', () => {
+          icon.style.transition = 'transform 0.3s cubic-bezier(0.4,0,0.2,1)';
+          icon.style.transform = 'scale(1.18) rotate(-8deg)';
+        });
+        icon.addEventListener('mouseleave', () => {
+          icon.style.transform = '';
+        });
+      });
+      // Card bounce/rotate/scale on hover
+      document.querySelectorAll('.blog-card, .category-badge, .testimonial-card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          card.style.transition = 'transform 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s';
+          card.style.transform = 'scale(1.04) rotate(-1deg)';
+          card.style.boxShadow = '0 12px 40px rgba(102,126,234,0.18)';
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = '';
+          card.style.boxShadow = '';
+        });
+      });
+      // Ripple effect on card click
+      function addRippleEffect(e) {
+        const card = e.currentTarget;
+        let ripple = card.querySelector('.ripple');
+        if (ripple) ripple.remove();
+        ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        card.appendChild(ripple);
+        const d = Math.max(card.clientWidth, card.clientHeight);
+        ripple.style.width = ripple.style.height = d + 'px';
+        ripple.style.left = e.offsetX - d/2 + 'px';
+        ripple.style.top = e.offsetY - d/2 + 'px';
+        ripple.classList.add('ripple-animate');
+        ripple.addEventListener('animationend', () => ripple.remove());
+      }
+      document.querySelectorAll('.blog-card, .category-badge, .testimonial-card').forEach(card => {
+        card.addEventListener('click', addRippleEffect);
+      });
+      // Sidebar icon wiggle on hover
+      document.querySelectorAll('.sidebar .links li span').forEach(icon => {
+        icon.addEventListener('mouseenter', () => {
+          icon.style.transition = 'transform 0.25s cubic-bezier(0.4,0,0.2,1)';
+          icon.style.transform = 'scale(1.18) rotate(-8deg)';
+        });
+        icon.addEventListener('mouseleave', () => {
+          icon.style.transform = '';
+        });
+      });
+      // Button hover effects (already in CSS, but reinforce)
+      document.querySelectorAll('.cta-btn').forEach(btn => {
+        btn.addEventListener('mouseenter', () => {
+          btn.style.transition = 'transform 0.2s cubic-bezier(0.4,0,0.2,1), box-shadow 0.2s';
+          btn.style.transform = 'scale(1.05)';
+          btn.style.boxShadow = '0 8px 25px rgba(102, 126, 234, 0.18)';
+        });
+        btn.addEventListener('mouseleave', () => {
+          btn.style.transform = '';
+          btn.style.boxShadow = '';
+        });
       });
     });
   </script>

@@ -191,7 +191,8 @@
           }
         });
       });
-      // Anim-slide-in observer
+      // --- INTERACTIVE ANIMATIONS ---
+      // Animate all anim-slide-in elements on scroll
       const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -206,6 +207,81 @@
       }, observerOptions);
       document.querySelectorAll('.anim-slide-in').forEach(el => {
         observer.observe(el);
+      });
+      // Animate all card-grid-animate children with stagger
+      document.querySelectorAll('.card-grid-animate').forEach(grid => {
+        const children = Array.from(grid.children).filter(child => child.classList.contains('service-card') || child.classList.contains('pricing-tier') || child.classList.contains('tech-badge') || child.classList.contains('process-step'));
+        children.forEach((child, i) => {
+          child.style.opacity = '0';
+          child.style.transform = 'translateY(30px) scale(0.98)';
+          setTimeout(() => {
+            child.style.transition = 'all 0.7s cubic-bezier(0.4,0,0.2,1)';
+            child.style.opacity = '1';
+            child.style.transform = 'translateY(0) scale(1)';
+          }, 200 + i * 120);
+        });
+      });
+      // Micro-interactions: icon pop/rotate on hover
+      document.querySelectorAll('.service-card .material-symbols-outlined, .pricing-tier .tier-name, .tech-badge, .process-step .step-number').forEach(icon => {
+        icon.addEventListener('mouseenter', () => {
+          icon.style.transition = 'transform 0.3s cubic-bezier(0.4,0,0.2,1)';
+          icon.style.transform = 'scale(1.18) rotate(-8deg)';
+        });
+        icon.addEventListener('mouseleave', () => {
+          icon.style.transform = '';
+        });
+      });
+      // Card bounce/rotate/scale on hover
+      document.querySelectorAll('.service-card, .pricing-tier, .tech-badge, .process-step').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          card.style.transition = 'transform 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s';
+          card.style.transform = 'scale(1.04) rotate(-1deg)';
+          card.style.boxShadow = '0 12px 40px rgba(102,126,234,0.18)';
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = '';
+          card.style.boxShadow = '';
+        });
+      });
+      // Ripple effect on card click
+      function addRippleEffect(e) {
+        const card = e.currentTarget;
+        let ripple = card.querySelector('.ripple');
+        if (ripple) ripple.remove();
+        ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        card.appendChild(ripple);
+        const d = Math.max(card.clientWidth, card.clientHeight);
+        ripple.style.width = ripple.style.height = d + 'px';
+        ripple.style.left = e.offsetX - d/2 + 'px';
+        ripple.style.top = e.offsetY - d/2 + 'px';
+        ripple.classList.add('ripple-animate');
+        ripple.addEventListener('animationend', () => ripple.remove());
+      }
+      document.querySelectorAll('.service-card, .pricing-tier, .tech-badge, .process-step').forEach(card => {
+        card.addEventListener('click', addRippleEffect);
+      });
+      // Sidebar icon wiggle on hover
+      document.querySelectorAll('.sidebar .links li span').forEach(icon => {
+        icon.addEventListener('mouseenter', () => {
+          icon.style.transition = 'transform 0.25s cubic-bezier(0.4,0,0.2,1)';
+          icon.style.transform = 'scale(1.18) rotate(-8deg)';
+        });
+        icon.addEventListener('mouseleave', () => {
+          icon.style.transform = '';
+        });
+      });
+      // Button hover effects (already in CSS, but reinforce)
+      document.querySelectorAll('.cta-btn').forEach(btn => {
+        btn.addEventListener('mouseenter', () => {
+          btn.style.transition = 'transform 0.2s cubic-bezier(0.4,0,0.2,1), box-shadow 0.2s';
+          btn.style.transform = 'scale(1.05)';
+          btn.style.boxShadow = '0 8px 25px rgba(102, 126, 234, 0.18)';
+        });
+        btn.addEventListener('mouseleave', () => {
+          btn.style.transform = '';
+          btn.style.boxShadow = '';
+        });
       });
     });
   </script>
