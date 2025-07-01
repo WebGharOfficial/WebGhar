@@ -4,6 +4,11 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 let camera, scene, renderer, controls;
 
+// Mobile detection function
+function isMobile() {
+    return window.innerWidth <= 700 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
 function init() {
     const container = document.getElementById('model-container');
     if (!container) {
@@ -34,12 +39,74 @@ function init() {
     directionalLight.position.set(5, 10, 7.5);
     scene.add(directionalLight);
 
-    // Controls
+    // Controls with mobile-specific settings
     controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.autoRotate = true; // Add auto-rotation
     controls.autoRotateSpeed = 0.5;
     controls.enableZoom = false; // Disable zoom
+    
+    // Mobile-specific controls
+    if (isMobile()) {
+        // Lock vertical rotation on mobile - only allow horizontal rotation
+        controls.minPolarAngle = Math.PI / 2; // 90 degrees
+        controls.maxPolarAngle = Math.PI / 2; // 90 degrees
+        controls.enablePan = false; // Disable panning on mobile
+        controls.autoRotateSpeed = 0.3; // Slower rotation on mobile
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05; // Smoother damping on mobile
+        
+        // Allow page scrolling when not interacting with the model
+        controls.enableKeys = false;
+        controls.screenSpacePanning = false;
+        
+        // Set default mobile view to be angled from slightly above
+        camera.position.y = 0.8; // Position camera slightly above
+        camera.position.z = 2.5; // Slightly closer for better mobile view
+        controls.target.set(0, 0.2, 0); // Look slightly above center
+        
+        // Mobile-specific touch handling for page scrolling
+        let startY = null;
+        let startX = null;
+        let isVerticalScroll = false;
+
+        renderer.domElement.addEventListener('touchstart', function(e) {
+            if (e.touches.length === 1) {
+                startY = e.touches[0].clientY;
+                startX = e.touches[0].clientX;
+                isVerticalScroll = false;
+                controls.enabled = true;
+            }
+        });
+
+        renderer.domElement.addEventListener('touchmove', function(e) {
+            if (e.touches.length === 1 && startY !== null && startX !== null) {
+                const deltaY = Math.abs(e.touches[0].clientY - startY);
+                const deltaX = Math.abs(e.touches[0].clientX - startX);
+                // If vertical movement is greater than horizontal, treat as scroll
+                if (deltaY > deltaX && deltaY > 8) {
+                    controls.enabled = false; // Let the page scroll
+                    isVerticalScroll = true;
+                } else if (!isVerticalScroll) {
+                    controls.enabled = true; // Allow model rotation
+                }
+            }
+        });
+
+        renderer.domElement.addEventListener('touchend', function(e) {
+            controls.enabled = true; // Re-enable after touch ends
+            startY = null;
+            startX = null;
+            isVerticalScroll = false;
+        });
+    } else {
+        // Desktop controls - allow full rotation
+        controls.minPolarAngle = 0;
+        controls.maxPolarAngle = Math.PI;
+        controls.enablePan = true;
+        controls.autoRotateSpeed = 0.5;
+        controls.dampingFactor = 0.05;
+    }
 
     // Load 3D model
     const loader = new GLTFLoader();
@@ -77,9 +144,17 @@ function init() {
             const fov = camera.fov * (Math.PI / 180);
             const cameraZ = Math.abs(size / 2 / Math.tan(fov / 2));
             
-            camera.position.z = cameraZ * 0.6; // Zoom in even more
-            camera.position.y = cameraZ * 0.23; // Slightly above the model
-            controls.target.set(0, 0, 0); // Look at the center
+            if (isMobile()) {
+                // Mobile-specific camera positioning
+                camera.position.z = cameraZ * 0.5; // Closer for mobile
+                camera.position.y = cameraZ * 0.3; // Higher angle for mobile
+                controls.target.set(0, 2, 0); // Look slightly above center
+            } else {
+                // Desktop camera positioning
+                camera.position.z = cameraZ * 0.6; // Zoom in even more
+                camera.position.y = cameraZ * 0.23; // Slightly above the model
+                controls.target.set(0, 0, 0); // Look at the center
+            }
             
             controls.update();
             scene.add(model);
@@ -107,7 +182,7 @@ function init() {
         }
     );
 
-    // Handle window resize
+    // Handle window resize with mobile detection
     window.addEventListener('resize', onWindowResize, false);
 }
 
@@ -118,6 +193,36 @@ function onWindowResize() {
     camera.aspect = container.offsetWidth / container.offsetHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(container.offsetWidth, container.offsetHeight);
+    
+    // Update controls for mobile/desktop switch
+    if (controls) {
+        if (isMobile()) {
+            // Lock vertical rotation on mobile
+            controls.minPolarAngle = Math.PI / 2;
+            controls.maxPolarAngle = Math.PI / 2;
+            controls.enablePan = false;
+            controls.autoRotateSpeed = 0.3;
+            controls.enableKeys = false;
+            controls.screenSpacePanning = false;
+            
+            // Maintain mobile camera angle
+            camera.position.y = 0.8;
+            controls.target.set(0, 0.2, 0);
+        } else {
+            // Allow full rotation on desktop
+            controls.minPolarAngle = 0;
+            controls.maxPolarAngle = Math.PI;
+            controls.enablePan = true;
+            controls.autoRotateSpeed = 0.5;
+            controls.enableKeys = true;
+            controls.screenSpacePanning = true;
+            
+            // Reset to desktop camera angle
+            camera.position.y = 0.23;
+            controls.target.set(0, 0, 0);
+        }
+        controls.update();
+    }
 }
 
 function animate() {

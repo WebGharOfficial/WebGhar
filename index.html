@@ -43,7 +43,8 @@
   </head>
   <body>
     <button class="mobile-hamburger" aria-label="Open sidebar" style="display:none">
-      <span class="material-symbols-outlined">menu</span>
+      <span class="material-symbols-outlined hamburger-icon">menu</span>
+      <span class="material-symbols-outlined back-icon" style="display:none">arrow_back</span>
     </button>
     <aside class="sidebar">
       <div class="logo">
@@ -51,7 +52,6 @@
         <h2>WebGhar</h2>
       </div>
       <ul class="links">
-        <h4>Navigation</h4>
         <li class="active">
           <span class="material-symbols-outlined" aria-hidden="true">home</span>
           <a href="index.html">Home</a>
@@ -135,7 +135,7 @@
           <h3>Our Numbers</h3>
           <div class="stats-section">
             <div class="stat-item">
-              <span class="stat-number">50+</span>
+              <span class="stat-number">10+</span>
               <span class="stat-label">Projects Completed</span>
             </div>
             <div class="stat-item">
@@ -208,35 +208,100 @@
         const sidebar = document.querySelector('.sidebar');
         const hamburger = document.querySelector('.mobile-hamburger');
         const overlay = document.querySelector('.sidebar-overlay');
+        const body = document.body;
+        
+        const hamburgerIcon = hamburger.querySelector('.hamburger-icon');
+        const backIcon = hamburger.querySelector('.back-icon');
+        
         function checkMobile() {
           if (window.innerWidth <= 700) {
             hamburger.style.display = 'flex';
             sidebar.classList.remove('open');
+            body.classList.remove('sidebar-open');
+            hamburgerIcon.style.display = '';
+            backIcon.style.display = 'none';
           } else {
             hamburger.style.display = 'none';
             sidebar.classList.remove('open');
             overlay.style.display = 'none';
+            body.classList.remove('sidebar-open');
+            hamburgerIcon.style.display = '';
+            backIcon.style.display = 'none';
           }
         }
         checkMobile();
         window.addEventListener('resize', checkMobile);
+        
         hamburger.addEventListener('click', function() {
-          sidebar.classList.add('open');
-          overlay.style.display = 'block';
+          if (!sidebar.classList.contains('open')) {
+            sidebar.classList.add('open');
+            overlay.style.display = 'block';
+            body.classList.add('sidebar-open');
+            hamburgerIcon.style.display = 'none';
+            backIcon.style.display = '';
+            // Trigger reflow for smooth animation
+            sidebar.offsetHeight;
+          } else {
+            sidebar.classList.remove('open');
+            overlay.style.display = 'none';
+            body.classList.remove('sidebar-open');
+            hamburgerIcon.style.display = '';
+            backIcon.style.display = 'none';
+          }
         });
+        
         overlay.addEventListener('click', function() {
           sidebar.classList.remove('open');
           overlay.style.display = 'none';
+          body.classList.remove('sidebar-open');
+          hamburgerIcon.style.display = '';
+          backIcon.style.display = 'none';
         });
+        
+        // Close sidebar on escape key
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && window.innerWidth <= 700) {
+            sidebar.classList.remove('open');
+            overlay.style.display = 'none';
+            body.classList.remove('sidebar-open');
+            hamburgerIcon.style.display = '';
+            backIcon.style.display = 'none';
+          }
+        });
+        
         // Optional: close sidebar on link click (mobile)
         sidebar.querySelectorAll('a').forEach(link => {
           link.addEventListener('click', function() {
             if (window.innerWidth <= 700) {
               sidebar.classList.remove('open');
               overlay.style.display = 'none';
+              body.classList.remove('sidebar-open');
+              hamburgerIcon.style.display = '';
+              backIcon.style.display = 'none';
             }
           });
         });
+        
+        // Enhanced touch interactions for mobile
+        if (window.innerWidth <= 700) {
+          // Add touch feedback to sidebar items
+          sidebar.querySelectorAll('li').forEach(item => {
+            item.addEventListener('touchstart', function() {
+              this.style.transform = 'scale(0.98)';
+            });
+            item.addEventListener('touchend', function() {
+              this.style.transform = '';
+            });
+          });
+          
+          // Add touch feedback to hamburger
+          hamburger.addEventListener('touchstart', function() {
+            this.style.transform = 'scale(0.95)';
+          });
+          hamburger.addEventListener('touchend', function() {
+            this.style.transform = '';
+          });
+        }
 
         // --- INTERACTIVE ANIMATIONS ---
         // Animate all anim-slide-in elements on scroll
